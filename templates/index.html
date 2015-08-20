@@ -24,13 +24,10 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="./static/css/creative.css" type="text/css">
- 
-	<!-- <link rel="stylesheet" href="./static/lib/css//bootstrap.min.css"> -->
-	<!-- <link rel="stylesheet" href="./static/lib/css/keen-dashboards.css"> -->
-	<!-- <link rel="stylesheet" href="./static/lib/css/dc.css"> -->
-	<!-- <link rel="stylesheet" href="./static/css/custom.css"> -->
+    <link rel="stylesheet" href="./static/css/lineChart.css">
 
-
+	<script src="./static/js/d3.js"></script>
+	
 </head>
 
 <body class="application">
@@ -172,40 +169,19 @@
 			<div class="row">
 
 				<!-- Time Chart -->
-				<div class="col-sm-9">
+				<div class="col-sm-12 text-center">
 					<div class="chart-wrapper">
 						<div class="chart-title">
-						Number of measures
+						<p><b>Last Month Data</b></p>
 						</div>
-						<div class="chart-stage">
-							<div id="time-chart"></div>
+						<div class="chart-stage" id="lineChart">
+							<script src="./static/js/lineChart.js"></script>
+							<script language="JavaScript"> var lineChart = displayChart()</script>
 						</div>
 					</div>
 				</div>
 				<!-- Time Chart --> 
-	  
-				<!-- Metric 1 -->
-				<div class="col-sm-3 text-center">
-					<div class="chart-wrapper">
-						<div class="chart-title">
-							Total Number of measures
-						</div>
-						<div class="chart-stage">
-							<div id="number-projects-nd"></div>
-						</div>
-					</div>
-				</div>
-				<!-- Metric 1 -->
-				
-				<!-- example
-                <div class="col-lg-3 col-md-6 text-center">
-                    <div class="service-box">
-                        <i class="fa fa-4x fa-heart wow bounceIn text-primary" data-wow-delay=".3s"></i>
-                        <h3>Made with Love</h3>
-                        <p class="text-muted">You have to make your websites with love these days!</p>
-                    </div>
-                </div>
-				 -->
+
             </div>
         </div>
     </section>
@@ -387,12 +363,7 @@
 	
 	<script src="./static/js/jquery.min.js"></script>
 	<script src="./static/js/bootstrap.min.js"></script>
-	<script src="./static/js/crossfilter.js"></script>
-	<script src="./static/js/d3.js"></script>
-	<script src="./static/js/dc.js"></script>
-	<script src="./static/js/queue.js"></script>
 	<script src="./static/js/liquidFillGauge.js"></script>
-	<script src="./static/js/radialProgress.js"></script>
 	
 	<!-- jQuery -->
     <script src="./static/js/jquery.js"></script>
@@ -405,10 +376,8 @@
     <script src="./static/js/jquery.fittext.js"></script>
     <script src="./static/js/wow.min.js"></script>
 
-    <!-- Custom Theme JavaScript -->
-    <script src="./static/js/creative.js"></script>
-	
-	<script src='./static/js/graphs.js' type='text/javascript'></script>
+    <!-- Custom JavaScript -->
+    <script src="./static/js/creative.js"></script>	
 	
     <!-- Gauges fill -->	
 	<script language="JavaScript">
@@ -417,13 +386,13 @@
 		config1.textColor = "#CF000F";
 		config1.waveTextColor = "#D91E18";
 		config1.waveColor = "#FF7668";
-		config1.circleThickness = 0.1;
-		config1.waveAnimateTime = 2000;
+		config1.circleThickness = 0.08;
 		config1.waveHeight = 0;
 		config1.waveAnimate = false;
+		config1.waveCount = 1;
 		config1.waveOffset = 0.25;
 		config1.minValue = -10;
-		config1.maxValue = 50
+		config1.maxValue = 50;
 		config1.displayPercent = false;
 		var gauge1 = loadLiquidFillGauge("fillgauge1", 22, config1);
 
@@ -432,10 +401,12 @@
 		config2.textColor = "#1F3A93";
 		config2.waveTextColor = "#2574A9";
 		config2.waveColor = "#6BB9F0";
-		config2.circleThickness = 0.1;
+		config2.circleThickness = 0.08;
 		config2.waveAnimateTime = 3000;
 		config2.waveHeight = 0.05;
 		config2.waveCount = 2;
+		config2.minValue = 0;
+		config2.maxValue = 100;
 		var gauge2 = loadLiquidFillGauge("fillgauge2", 55, config2);
 		
 		var config3 = liquidFillGaugeDefaultSettings();
@@ -443,17 +414,15 @@
 		config3.textColor = "#F7CA18";
 		config3.waveTextColor = "#F4D03F";
 		config3.waveColor = "#F5D76E";
-		config3.circleThickness = 0.1;
-		config3.waveAnimateTime = 2000;
+		config3.circleThickness = 0.08;
 		config3.waveHeight = 0;
 		config3.waveAnimate = false;
-		config3.waveCount = 2;
+		config3.waveCount = 1;
 		config3.waveOffset = 0.25;
 		config3.minValue = 0;
-		config3.maxValue = 2000
+		config3.maxValue = 2000;
 		config3.displayPercent = false;
 		var gauge3 = loadLiquidFillGauge("fillgauge3", 600, config3);
-		
 		
 		function NewValue(){
 			if(Math.random() > .5){
@@ -462,6 +431,10 @@
 				return (Math.random()*100).toFixed(1);
 			}
 		}
+		
+		
+		
+		
 	</script>
 	
 </body>

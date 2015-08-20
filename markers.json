@@ -1,0 +1,22 @@
+[
+  {
+    "date": "2014-08-06",
+    "type": "Water",
+    "quantity": "0.5L"
+  },
+  {
+    "date": "2014-08-20",
+    "type": "Server",
+    "quantity": "0.2L"
+  },
+  {
+    "date": "2014-08-27",
+    "type": "Water",
+    "quantity": "0.2L"
+  },
+  {
+    "date": "2014-09-03",
+    "type": "Water",
+    "quantity": "0.3L"
+  }
+]
