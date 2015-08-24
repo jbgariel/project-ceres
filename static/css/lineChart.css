@@ -88,3 +88,18 @@ svg {
 .marker text {
   text-anchor: middle;
 }
+
+.focus circle {
+  fill: none;
+  stroke: rgba(0, 153, 51, 0.8);
+}
+
+.focus text {
+  fill: rgba(0, 153, 51, 1);
+  font-weight: bold;
+}
+
+.overlay {
+  fill: none;
+  pointer-events: all;
+}

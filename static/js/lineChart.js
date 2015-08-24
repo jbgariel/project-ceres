@@ -183,6 +183,8 @@ function makeChart (data, markers) {
     .append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
+  var bisectDate = d3.bisector(function(d) { return d.date; }).left;
+  
   // clipping to start chart hidden and slide it in later
   var rectClip = svg.append('clipPath')
     .attr('id', 'rect-clip')
@@ -192,6 +194,40 @@ function makeChart (data, markers) {
 
   addAxesAndLegend(svg, xAxis, yAxis, margin, chartWidth, chartHeight);
   drawPaths(svg, data, x, y);
+  
+  var focus = svg.append("g")
+      .attr("class", "focus")
+      .style("display", "none");
+
+  focus.append("circle")
+      .attr("r", 4.5);
+
+  focus.append("text")
+      .attr("x", 9)
+      .attr("dy", "-.65em");
+	  
+  svg.append("rect")
+      .attr("class", "overlay")
+      .attr("width", svgWidth)
+      .attr("height", svgHeight)
+      .on("mouseover", function() { focus.style("display", null); })
+      .on("mouseout", function() { focus.style("display", "none"); })
+      .on("mousemove", mousemove);
+
+  function mousemove() {
+  
+    console.log(x.invert(d3.mouse(this)[0]))
+	
+    var x0 = x.invert(d3.mouse(this)[0]),
+        i = bisectDate(data, x0, 1),
+        d0 = data[i - 1],
+        d1 = data[i],
+        d = x0 - d0.date > d1.date - x0 ? d1 : d0;
+    focus.attr("transform", "translate(" + x(d.date) + "," + y(d.pct25) + ")");
+
+    focus.select("text").text(d.pct25);
+  }
+  
   startTransitions(svg, chartWidth, chartHeight, rectClip, markers, x);
 }
 
