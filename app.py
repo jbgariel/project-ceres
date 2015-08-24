@@ -21,8 +21,6 @@ def ceres_project():
 	connection = MongoClient()
 	collection = connection[DBS_NAME][COLLECTION_NAME]
 	projects = collection.find({"name": "datastream"}).sort("{$natural:-1}").limit(1000)
-    #projects = collection.find(projection=FIELDS, limit=1000)
-    #projects = collection.find(projection=FIELDS)
 	json_projects = []
 	for project in projects:
 		json_projects.append(project)
