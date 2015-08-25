@@ -89,13 +89,33 @@ svg {
   text-anchor: middle;
 }
 
-.focus circle {
+.focusTemp circle {
   fill: none;
-  stroke: rgba(0, 153, 51, 0.8);
+  stroke: rgba(207, 0, 15, 0.8);
 }
 
-.focus text {
-  fill: rgba(0, 153, 51, 1);
+.focusTemp text {
+  fill: rgba(207, 0, 15, 1);
+  font-weight: bold;
+}
+
+.focusMois circle {
+  fill: none;
+  stroke: rgba(31, 58, 147, 0.8);
+}
+
+.focusMois text {
+  fill: rgba(31, 58, 147, 1);
+  font-weight: bold;
+}
+
+.focusLight circle {
+  fill: none;
+  stroke: rgba(247, 202, 24, 0.8);
+}
+
+.focusLight text {
+  fill: rgba(247, 202, 24, 1);
   font-weight: bold;
 }
 

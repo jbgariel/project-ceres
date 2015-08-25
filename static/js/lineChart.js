@@ -195,14 +195,30 @@ function makeChart (data, markers) {
   addAxesAndLegend(svg, xAxis, yAxis, margin, chartWidth, chartHeight);
   drawPaths(svg, data, x, y);
   
-  var focus = svg.append("g")
-      .attr("class", "focus")
+  var focusTemp = svg.append("g")
+      .attr("class", "focusTemp")
+      .style("display", "none");
+  var focusMois = svg.append("g")
+      .attr("class", "focusMois")
+      .style("display", "none");
+  var focusLight = svg.append("g")
+      .attr("class", "focusLight")
       .style("display", "none");
 
-  focus.append("circle")
+  focusTemp.append("circle")
       .attr("r", 4.5);
-
-  focus.append("text")
+  focusMois.append("circle")
+      .attr("r", 4.5);
+  focusLight.append("circle")
+      .attr("r", 4.5);
+	  
+  focusTemp.append("text")
+      .attr("x", 9)
+      .attr("dy", "-.65em");
+  focusMois.append("text")
+      .attr("x", 9)
+      .attr("dy", "-.65em");
+  focusLight.append("text")
       .attr("x", 9)
       .attr("dy", "-.65em");
 	  
@@ -210,8 +226,16 @@ function makeChart (data, markers) {
       .attr("class", "overlay")
       .attr("width", svgWidth)
       .attr("height", svgHeight)
-      .on("mouseover", function() { focus.style("display", null); })
-      .on("mouseout", function() { focus.style("display", "none"); })
+      .on("mouseover", function() { 
+		focusTemp.style("display", null);
+		focusMois.style("display", null);
+		focusLight.style("display", null);
+		})
+      .on("mouseout", function() {
+		focusTemp.style("display", "none");
+		focusMois.style("display", "none");
+		focusLight.style("display", "none");
+		})
       .on("mousemove", mousemove);
 
   function mousemove() {
@@ -223,9 +247,15 @@ function makeChart (data, markers) {
         d0 = data[i - 1],
         d1 = data[i],
         d = x0 - d0.date > d1.date - x0 ? d1 : d0;
-    focus.attr("transform", "translate(" + x(d.date) + "," + y(d.pct25) + ")");
+		
+    focusTemp.attr("transform", "translate(" + x(d.date) + "," + y(d.temp) + ")");
+    focusMois.attr("transform", "translate(" + x(d.date) + "," + y(d.pct25) + ")");
+    focusLight.attr("transform", "translate(" + x(d.date) + "," + y(d.pct50) + ")");
 
-    focus.select("text").text(d.pct25);
+    focusTemp.select("text").text(d.temp);
+	focusMois.select("text").text(d.pct25);
+    focusLight.select("text").text(d.pct50);
+
   }
   
   startTransitions(svg, chartWidth, chartHeight, rectClip, markers, x);
