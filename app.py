@@ -29,4 +29,4 @@ def ceres_project():
 	return json_projects
 	
 if __name__ == "__main__":
-    app.run(host='vps192645.ovh.net',port=5000,debug=True)
+    app.run(host='vps192645.ovh.net', port=5000, debug=True)
