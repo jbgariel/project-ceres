@@ -65,7 +65,7 @@ function addAxesAndLegend (svg, xAxis, yAxis, margin, chartWidth, chartHeight) {
   legend.append('text')
     .attr('x', 70)
     .attr('y', 85)
-    .text('Light (lumen)');
+    .text('Light (lumens)');
 }
 
 function drawPaths (svg, data, x, y) {
