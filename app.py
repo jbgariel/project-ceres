@@ -21,8 +21,6 @@ def ceres_project():
 	connection = MongoClient()
 	collection = connection[DBS_NAME][COLLECTION_NAME]
 	projects = collection.find({"name": "datastream"}).sort("{$natural:-1}").limit(1000)
-    #projects = collection.find(projection=FIELDS, limit=1000)
-    #projects = collection.find(projection=FIELDS)
 	json_projects = []
 	for project in projects:
 		json_projects.append(project)
@@ -31,4 +29,4 @@ def ceres_project():
 	return json_projects
 	
 if __name__ == "__main__":
-    app.run(host='vps192645.ovh.net',port=5000,debug=True)
+    app.run(host='vps192645.ovh.net', port=5000, debug=True)
