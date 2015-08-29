@@ -1,2 +1,4 @@
-## Electrical schematics
-Made with Kicad http://kicad-pcb.org/
+## Project schemas
+
+Electrical schematics are made with Kicad http://kicad-pcb.org/
+
