@@ -11,17 +11,9 @@ insert = function insert(data){
     db.devicestream.insert(data);
 };
 
-//var data = {
-//    name: "hacker_morphing_2",
-//    id: "300037000347343138333128",
-//	type: "Photon"
-//};
-
-//insert(data);
-  
 spark.on('login', function() {
 
-  //Get your devices events
+  //Get device events
   spark.getEventStream(false, 'mine', function(data) {
     console.log("Event: " + JSON.stringify(data));
 	insert(data);
