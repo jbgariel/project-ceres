@@ -263,6 +263,14 @@ header .header-content .header-content-inner p {
     margin-bottom: 0;
 }
 
+#footer {
+    background: #323137;
+    padding-top: 70px;
+    padding-bottom: 160px;
+    color: #d1d2d8;
+    width: 100%;
+}
+
 .portfolio-box {
     display: block;
     position: relative;
@@ -555,4 +563,33 @@ body {
 	font-family: Helvetica; 
 	font-weight: bold; 
 }
+
+.team-bio {
+    margin-bottom: 30px;
+}
+
+.team-bio h3 {
+    margin-top: 0;
+    font-weight: normal;
+    font-size: 1.3em;
+    color: #fff;
+}
+
+.footer-portrait {
+    width: 100%;
+    border: 4px solid #fff;
+}
+
+#about-pc {
+    margin-bottom: 60px;
+}
+
+#footer-logo {
+    width: 100%;
+    background: url("/static/img/logo/cwhite.png") no-repeat top left;
+    background-size: contain;
+    display: block;
+    height: 120px;
+}
+
 
