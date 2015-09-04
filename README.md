@@ -13,7 +13,7 @@ The prototype uses the following technologies :
 More info : http://www.project-ceres.xyz
 
 ## To Do
-* Connect moisture sensor
+* ~~Connect moisture sensor~~
 * Moisture sensor calibration
 * Light sensor calibration
 * Temperature sensor calibration
@@ -28,6 +28,7 @@ More info : http://www.project-ceres.xyz
 * Buy alim
 * Photos
 * Social network part on website
+* Buy cable sheath
 
 
 
