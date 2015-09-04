@@ -14,6 +14,9 @@ int thermistor = D3;
 int thermvalue;
 int motorState = LOW;
 int motorPin = D1;
+int moisture = D5;
+int moisvalue;
+int moisPin = D6;
 
 // Neopixel ring 
 #define PIXEL_PIN D4
@@ -26,18 +29,24 @@ Adafruit_NeoPixel strip = Adafruit_NeoPixel(PIXEL_COUNT, PIXEL_PIN, PIXEL_TYPE);
 const int buttonPin = D2;
 ClickButton button1(buttonPin, LOW, CLICKBTN_PULLUP);
 
-long interval = 2000;  
+long interval = 20000;  
 long previousMillis = 0;  
+long motorMillis = 0;  
+long motorDuration = 0;  
 
 // Data stream
-char data[42];
+char data[100];
+char dataMotor[100];
 
 void setup() {
+    
+    Serial.begin(9600);
     
     // Setup for button & motor
     pinMode(buttonPin, INPUT_PULLUP); 
     pinMode(motorPin, OUTPUT);
-    
+    pinMode(moisPin, OUTPUT);
+
     // Setup for the ring
     strip.begin();
     strip.show();
@@ -69,9 +78,11 @@ void loop() {
             colorWipe(strip.Color(255, 0, 0), 50);
             colorWipe(strip.Color(0, 0, 0), 50);
             colorWipe(strip.Color(255, 0, 0), 50);
+            motorMillis = currentMillis;
             motorState = HIGH;
         } else {
             motorState = LOW;
+            motorDuration = currentMillis - motorMillis;
             colorWipe(strip.Color(0, 0, 0), 1);
         }
             
@@ -83,15 +94,28 @@ void loop() {
         colorWipe(strip.Color(0, 0, 0), 1);
     }
     
-    if(currentMillis - previousMillis > interval) { // Publish data every X seconds
+    if (currentMillis - previousMillis > interval) { // Publish data every X seconds
         previousMillis = currentMillis;   
-
+        
+        digitalWrite(moisPin, HIGH); // Activate moisture sensor (keep it alive...)
+        colorWipe(strip.Color(0, 0, 255), 50); //make sure the sensor is powered
+        colorWipe(strip.Color(0, 0, 0), 50);
         photovalue = analogRead(photoresistor);
         thermvalue = analogRead(thermistor);
+        moisvalue = analogRead(moisture);
 
-        sprintf(data, "%d;%d;%d", photovalue, thermvalue, motorState);
+        // publish sensors data
+        sprintf(data, "%d;%d;%d;%d", photovalue, thermvalue, moisvalue, motorState);
+        Particle.publish("dataStream", data, 300, PRIVATE);
+        
+        // publish manual watering events
+        if(motorDuration != 0) {
+            sprintf(dataMotor, "%li", motorDuration);
+            Particle.publish("motorActivation", dataMotor, 300, PRIVATE);
+            motorDuration = 0; 
+        }
 
-        Spark.publish("datastream", data, 300, PRIVATE);
+        digitalWrite(moisPin, LOW);
     }
     
     if (button1.clicks == -1) { // Sleep if long click
@@ -100,6 +124,10 @@ void loop() {
     }
 }
 
+// Server command for pump
+void serverPumpOrder(uint8_t wait) {
+    
+}
 
 // Ring functions
 void rainbow(uint8_t wait) {
