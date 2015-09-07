@@ -30,5 +30,10 @@ More info : http://www.project-ceres.xyz
 * Social network part on website
 * Buy cable sheath
 
-
+## Questions
+* Connector between photoresistro and pcb = noise ? data lost ?
+* find case for photoresistor http://www.ebay.com/itm/5-IP-Camera-Photoresistor-Lead-Wire-Assy-Light-Dependent-Resistor-LDR-GL5528-B-/261513555096
+* need this ? http://fr.aliexpress.com/store/product/OneWorld-Light-Intensity-Sensor-Module-5528-Photo-Resistor-For-AVR-case-for-arduino-UNO-R3/1626483_32282578300.html?storeId=1626483
+* Install temperature sensor directly on pcb ?
+* need better sensors ?
 
