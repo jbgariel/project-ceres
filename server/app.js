@@ -25,8 +25,7 @@ spark.on('login', function() {
 
   	if (dataStream.name == "dataStream"){
   		var sensorsData = dataStream.data.split(";");
-  		console.log(sensorsData[1]);
-
+  		console.log(sensorsData[0]);
   	}
 
   	console.log(sensorsData);
@@ -35,4 +34,3 @@ spark.on('login', function() {
   });
 
 });
-
