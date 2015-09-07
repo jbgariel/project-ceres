@@ -1,2 +1,6 @@
+# Mac file
 .DS_Store
+
+# Config and passwords...
+config.js
 
