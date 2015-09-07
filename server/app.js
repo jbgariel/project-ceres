@@ -12,17 +12,6 @@ console.log(config.mongodb.password);
 spark.login({username: config.mongodb.user_name, password: config.mongodb.password});
 
 insert = function insert(data) {
-
-	console.log(JSON.parse(data));
-  	var dataStream = JSON.parse(data);
-  	console.log(dataStream);
-
-  if (dataStream.name == "dataStream"){
-  	var sensorsData = dataStream.data.split(";");
-  }
-
-  console.log(sensorsData);
-
   db.devicestream.insert(data);
 };
 
@@ -30,6 +19,16 @@ spark.on('login', function() {
 
   //Get device events
   spark.getEventStream(false, 'mine', function(data) {
+
+  	console.log(JSON.parse(data));
+  	var dataStream = JSON.parse(data);
+  	console.log(dataStream);
+  	
+  	if (dataStream.name == "dataStream"){
+  		var sensorsData = dataStream.data.split(";");
+  	}
+
+  	console.log(sensorsData);
     console.log("Event: " + JSON.stringify(data));
 	insert(data);
   });
