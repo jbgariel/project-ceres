@@ -31,6 +31,13 @@ spark.on('login', function() {
   	console.log(sensorsData);
     console.log("Event: " + JSON.stringify(data));
 	insert(data);
+	activateMotor(20);
   });
 
 });
+
+var activateMotor = function(motorDuration) {
+	Spark.callFunction('300037000347343138333038','serverPumpOrder','motorDuration',function(err,data){
+		console.log("unfollowed");
+	);
+};

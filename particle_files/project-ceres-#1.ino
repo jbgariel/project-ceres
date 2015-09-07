@@ -126,7 +126,7 @@ void loop() {
 
 // Server command for pump
 void serverPumpOrder(uint8_t wait) {
-    
+    rainbowflash(80, 7);
 }
 
 // Ring functions
