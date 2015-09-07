@@ -21,13 +21,15 @@ spark.on('login', function() {
   spark.getEventStream(false, 'mine', function(data) {
 
   	var data_json = JSON.stringify(data);
-  	console.log(typeof data_json);
-  	console.log(JSON.parse(data_json));
   	var dataStream = JSON.parse(data_json);
-  	console.log(dataStream);
+  	console.log(dataStream[1]);
 
   	if (dataStream.name == "dataStream"){
   		var sensorsData = dataStream.data.split(";");
+  		console.log(sensorsData);
+
+
+
   	}
 
   	console.log(sensorsData);
