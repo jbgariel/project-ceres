@@ -29,6 +29,7 @@ More info : http://www.project-ceres.xyz
 * Photos
 * Social network part on website
 * Buy cable sheath
+* add IFTTT notifications
 
 ## Questions
 * Connector between photoresistro and pcb = noise ? data lost ?
