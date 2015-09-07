@@ -38,4 +38,5 @@ More info : http://www.project-ceres.xyz
 * need this ? http://fr.aliexpress.com/store/product/OneWorld-Light-Intensity-Sensor-Module-5528-Photo-Resistor-For-AVR-case-for-arduino-UNO-R3/1626483_32282578300.html?storeId=1626483
 * Install temperature sensor directly on pcb ?
 * need better sensors ?
+* Need many sample for each sensor datastream, average value seems to be sufficient => average calculation on particle or server ?
 
