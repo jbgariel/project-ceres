@@ -5,15 +5,16 @@ var spark = require('spark');
 var config = require('./config');
 var db = mongojs('ceres_db', ['devices', 'devicestream'])
 
+console.log(config);
+console.log(config.mongodb.user_name);
+console.log(config.mongodb.password);
+
 spark.login({username: config.mongodb.user_name, password: config.mongodb.password});
 
 insert = function insert(data){
   var dataStream = JSON.stringify(data);
-  console.log("saved data: " + dataStream);
-  
-  //console.log(dataStream.data.split(";"));
-  
-  db.devicestream.insert(dataStream);
+  console.log("saved data: " + dataStream);  
+  db.devicestream.insert(data);
 };
 
 spark.on('login', function() {
