@@ -12,9 +12,11 @@ console.log(config.mongodb.password);
 spark.login({username: config.mongodb.user_name, password: config.mongodb.password});
 
 insert = function insert(data) {
-  var dataStream = JSON.parse(data);
-  console.log(dataStream);
-  
+
+	console.log(JSON.parse(data));
+  	var dataStream = JSON.parse(data);
+  	console.log(dataStream);
+
   if (dataStream.name == "dataStream"){
   	var sensorsData = dataStream.data.split(";");
   }
