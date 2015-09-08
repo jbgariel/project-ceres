@@ -32,7 +32,7 @@ def ceres_project():
 def ceres_project_watering():
 	connection = MongoClient()
 	collection = connection[DBS_NAME][COLLECTION_NAME]
-	projects = collection.find({"name": "motorActivation"}).sort("{$natural:-1}").limit(10)
+	projects = collection.find({"name": "pumpManual"}).sort("{$natural:-1}").limit(10)
 	json_projects_watering = []
 	for project in projects:
 		json_projects_watering.append(project)
