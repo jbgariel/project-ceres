@@ -79,7 +79,7 @@ function drawPaths (svg, data, x, y) {
   var light_line = d3.svg.line()
     .interpolate('linear')
     .x(function (d) { return x(d.date); })
-    .y(function (d) { return y(d.pct50); });
+    .y(function (d) { return y(d.light); });
 
   var temp_line = d3.svg.line()
     .interpolate('linear')
@@ -89,7 +89,7 @@ function drawPaths (svg, data, x, y) {
   var mois_line = d3.svg.line()
     .interpolate('linear')
     .x(function (d) { return x(d.date); })
-    .y(function (d) { return y(d.pct25); });
+    .y(function (d) { return y(d.mois); });
 
   svg.datum(data);
 
@@ -113,7 +113,7 @@ function addMarker (marker, svg, chartHeight, x) {
   var radius = 32,
       xPos = x(marker.date) - radius - 3,
       yPosStart = chartHeight - radius - 3,
-      yPosEnd = (marker.type === 'Server' ? 160 : 80) + radius - 3;
+      yPosEnd = (marker.type === 'PumpManual' ? 160 : 80) + radius - 3;
 
   var markerG = svg.append('g')
     .attr('class', 'marker '+marker.type.toLowerCase())
@@ -140,12 +140,12 @@ function addMarker (marker, svg, chartHeight, x) {
   markerG.append('text')
     .attr('x', radius)
     .attr('y', radius*0.9)
-    .text(marker.type);
+    .text((marker.type === 'PumpManual' ? "Manual" : "Auto"));
 
   markerG.append('text')
     .attr('x', radius)
     .attr('y', radius*1.5)
-    .text(marker.quantity);
+    .text(marker.quantity/100 + "mL");
 }
 
 function startTransitions (svg, chartWidth, chartHeight, rectClip, markers, x) {
@@ -170,7 +170,7 @@ function makeChart (data, markers) {
   var x = d3.time.scale().range([0, chartWidth])
             .domain(d3.extent(data, function (d) { return d.date; })),
       y = d3.scale.linear().range([chartHeight, 0])
-            .domain([0, d3.max(data, function (d) { return d.pct95; })]);
+            .domain([0, d3.max(data, function (d) { return d.mois; })]);
 
   var xAxis = d3.svg.axis().scale(x).orient('bottom')
                 .innerTickSize(-chartHeight).outerTickSize(0).tickPadding(10),
@@ -249,57 +249,14 @@ function makeChart (data, markers) {
         d = x0 - d0.date > d1.date - x0 ? d1 : d0;
 		
     focusTemp.attr("transform", "translate(" + x(d.date) + "," + y(d.temp) + ")");
-    focusMois.attr("transform", "translate(" + x(d.date) + "," + y(d.pct25) + ")");
-    focusLight.attr("transform", "translate(" + x(d.date) + "," + y(d.pct50) + ")");
+    focusMois.attr("transform", "translate(" + x(d.date) + "," + y(d.mois) + ")");
+    focusLight.attr("transform", "translate(" + x(d.date) + "," + y(d.light) + ")");
 
     focusTemp.select("text").text(d.temp);
-	focusMois.select("text").text(d.pct25);
-    focusLight.select("text").text(d.pct50);
+    focusMois.select("text").text(d.mois);
+    focusLight.select("text").text(d.light);
 
   }
   
   startTransitions(svg, chartWidth, chartHeight, rectClip, markers, x);
-}
-
-function displayChart () {
-var parseDate  = d3.time.format('%Y-%m-%d').parse;
-
-var test  = d3.json('./static/data/data.json', function (error, rawData) {
-  if (error) {
-    console.error(error);
-    return;
-  }
-
-  var data = rawData.map(function (d) {
-    return {
-      date:  parseDate(d.date),
-      pct05: d.pct05 / 1000,
-      pct25: d.pct25 / 1000,
-      pct50: d.pct50 / 1000,
-      pct75: d.pct75 / 1000,
-      pct95: d.pct95 / 1000,
-	  temp: d.pct50 / 1000 + 3 ,
-    };
- });
-
-  d3.json('./static/data/markers.json', function (error, markerData) {
-    if (error) {
-      console.error(error);
-      return;
-    }
-
-    var markers = markerData.map(function (marker) {
-      return {
-        date: parseDate(marker.date),
-        type: marker.type,
-        quantity: marker.quantity
-      };
-    });
-	
-    makeChart(data, markers);
-  });
-});
-
-test
-
 }

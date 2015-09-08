@@ -38,6 +38,6 @@ spark.on('login', function() {
 
 var activateMotor = function(motorDuration) {
 	Spark.callFunction('300037000347343138333038','serverPumpOrder','motorDuration',function(err,data){
-		console.log("unfollowed");
-	);
+		console.log("cannot pump ;)");
+	});
 };

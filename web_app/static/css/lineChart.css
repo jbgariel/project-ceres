@@ -61,15 +61,15 @@ svg {
   stroke: rgba(0, 0, 0, 0.5);
 }
 
-.marker.water .marker-bg,
-.marker.water path {
+.marker.pumpauto .marker-bg,
+.marker.pumpauto path {
   fill: rgba(38, 166, 91, 1);
   stroke: rgba(10, 127, 58, 1);
   stroke-width: 3;
 }
 
-.marker.server .marker-bg,
-.marker.server path {
+.marker.pumpmanual .marker-bg,
+.marker.pumpmanual path {
   fill: rgba(0, 153, 51, 0.8);
   stroke: rgba(0, 153, 51, 0.8);
   stroke-width: 3;
