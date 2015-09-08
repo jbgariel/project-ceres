@@ -111,7 +111,7 @@ void loop() {
         // publish manual watering events
         if(motorDuration != 0) {
             sprintf(dataMotor, "%li", motorDuration);
-            Particle.publish("motorActivation", dataMotor, 300, PRIVATE);
+            Particle.publish("pumpManual", dataMotor, 300, PRIVATE);
             motorDuration = 0; 
         }
 
@@ -126,7 +126,16 @@ void loop() {
 
 // Server command for pump
 void serverPumpOrder(uint8_t wait) {
+    unsigned long currentMillis = millis();
     rainbowflash(80, 7);
+    motorMillis = currentMillis;
+    motorState = HIGH;
+    delay(wait);
+    motorState = LOW;
+    motorDuration = currentMillis - motorMillis;
+    sprintf(dataMotor, "%li", motorDuration);
+    Particle.publish("pumpAuto", dataMotor, 300, PRIVATE);
+    motorDuration = 0; 
 }
 
 // Ring functions
