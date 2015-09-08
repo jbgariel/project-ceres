@@ -25,7 +25,7 @@ spark.on('login', function() {
 
   	if (dataStream.name == "dataStream"){
   		var sensorsData = dataStream.data.split(";");
-  		console.log(sensorsData[0]);
+ 		console.log(sensorsData[0]);
   	}
 
   	console.log(sensorsData);
@@ -37,7 +37,7 @@ spark.on('login', function() {
 });
 
 var activateMotor = function(motorDuration) {
-	Spark.callFunction('300037000347343138333038','serverPumpOrder','motorDuration',function(err,data){
+	spark.callFunction('300037000347343138333038','serverPumpOrder',motorDuration,function(err,data){
 		console.log("cannot pump ;)");
 	});
 };
