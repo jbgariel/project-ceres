@@ -20,7 +20,7 @@ def index():
 def ceres_project():
 	connection = MongoClient()
 	collection = connection[DBS_NAME][COLLECTION_NAME]
-	projects = collection.find({"name": "dataStream"}).sort("{$natural:-1}").limit(1000)
+	projects = collection.find({"name": "dataStream"}).sort("{$natural:-1}").limit(50)
 	json_projects = []
 	for project in projects:
 		json_projects.append(project)
