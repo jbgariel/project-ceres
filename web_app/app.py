@@ -28,6 +28,27 @@ def ceres_project():
 	connection.close()
 	return json_projects
 
+@app.route("/ceres_db/devicestream_test")
+def ceres_project_test():
+  connection = MongoClient()
+  collection = connection[DBS_NAME][COLLECTION_NAME]
+  projects = collection.find({"name": "dataStream"}).sort("{$natural:-1}").limit(50)
+  json_projects = []
+  for project in projects:
+    json_projects.append(project)
+  for i in range(0,len(json_projects)):
+    json_projects[i]["date"] = json_projects[i]["published_at"]
+    json_projects[i]["light"] = json_projects[i]["data"].split(";")[0]
+    del json_projects[i]["name"]
+    del json_projects[i]["coreid"]
+    del json_projects[i]["ttl"]
+    del json_projects[i]["_id"]
+    del json_projects[i]["data"]
+    del json_projects[i]["published_at"]
+  json_projects = json.dumps(json_projects, default=json_util.default)
+  connection.close()
+  return json_projects
+    
 @app.route("/ceres_db/devicestream_watering")
 def ceres_project_watering():
 	connection = MongoClient()
