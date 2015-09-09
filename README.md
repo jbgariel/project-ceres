@@ -40,4 +40,5 @@ More info : http://www.project-ceres.xyz
 * need better sensors ?
 * Need many sample for each sensor datastream, average value seems to be sufficient => average calculation on particle or server ?
 * How to deal with sensors unconsistancy ?
+* PCB schematics => where to find photon schematics for kicad ?
 
