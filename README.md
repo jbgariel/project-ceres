@@ -39,4 +39,5 @@ More info : http://www.project-ceres.xyz
 * Install temperature sensor directly on pcb ?
 * need better sensors ?
 * Need many sample for each sensor datastream, average value seems to be sufficient => average calculation on particle or server ?
+* How to deal with sensors unconsistancy ?
 
