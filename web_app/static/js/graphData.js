@@ -6,36 +6,36 @@ queue()
 
 function makeGraphs(error, projectsJson, projectsJson_watering, projectsJson_test, statesJson) {
 	
-	console.log("start makeGraphs fct");
-	
-	//Clean projectsJson data
-	var devicestream = projectsJson;
+  console.log("start makeGraphs fct");
+  var devicestream = projectsJson;
   //var devicestream_test = JSON.parse(JSON.stringify(projectsJson_test));
     
-  var devicestream_test = $.map(projectsJson_test, function(el) { return el; });  
-    
-  console.log(JSON.stringify(devicestream[1]));
+  var devicestream_test = $.map(projectsJson_test, function(el) { 
+	return el; 
+  });  
+  
+  devicestream_test.forEach(function(d) {
+        d = $.map(d, function(el) { return el; });
+  });
+
   console.log(JSON.stringify(devicestream_test[1]));
 
-	var watering = projectsJson_watering;
-	console.log(JSON.stringify(watering));
-  
-	var dateFormat = d3.time.format("%Y-%m-%d");
-	devicestream.forEach(function(d) {
-		d["published_at"] = new Date(d["published_at"]);
-		d["published_at"].setDate(1);
-		//d["data"] = +d["data"];
-	});
+  var watering = projectsJson_watering;
+  var dateFormat = d3.time.format("%Y-%m-%d");
+  devicestream.forEach(function(d) {
+        d["published_at"] = new Date(d["published_at"]);
+    	d["published_at"].setDate(1);
+  });
 
-	watering.forEach(function(d) {
-		d["published_at"] = new Date(d["published_at"]);
-		d["published_at"].setDate(1);
-	});
+  watering.forEach(function(d) {
+	d["published_at"] = new Date(d["published_at"]);
+    	d["published_at"].setDate(1);
+  });
   
   var data = devicestream.map(function (d) {
     
     var data_json = JSON.stringify(d);
-  	var dataStream = JSON.parse(data_json);
+    var dataStream = JSON.parse(data_json);
     var sensorsData = dataStream.data.split(";");
   
     return {
@@ -45,7 +45,9 @@ function makeGraphs(error, projectsJson, projectsJson_watering, projectsJson_tes
       mois: sensorsData[2],
     };
   });
-    
+  
+  console.log(data[0]);
+
   var markers = watering.map(function (marker) {
     return {
       date: marker.published_at,
@@ -126,8 +128,7 @@ function makeGraphs(error, projectsJson, projectsJson_watering, projectsJson_tes
         });
   //});
   });
-  
-  
-  
-  
+
+
+
 };
