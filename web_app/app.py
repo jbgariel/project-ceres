@@ -2,6 +2,8 @@ from flask import Flask
 from flask import render_template
 from pymongo import MongoClient
 import json
+import time
+from datetime import datetime
 from bson import json_util
 from bson.json_util import dumps
 
@@ -16,50 +18,59 @@ COLLECTION_NAME = 'devicestream'
 def index():
     return render_template("index.html")
 
-@app.route("/ceres_db/devicestream")
-def ceres_project():
-	connection = MongoClient()
-	collection = connection[DBS_NAME][COLLECTION_NAME]
-	projects = collection.find({"name": "dataStream"}).sort("{$natural:-1}").limit(50)
-	json_projects = []
-	for project in projects:
-		json_projects.append(project)
-	json_projects = json.dumps(json_projects, default=json_util.default)
-	connection.close()
-	return json_projects
-
-@app.route("/ceres_db/devicestream_test")
-def ceres_project_test():
+@app.route("/ceres_db/devicestream_light")
+def ceres_project_light():
   connection = MongoClient()
   collection = connection[DBS_NAME][COLLECTION_NAME]
-  projects = collection.find({"name": "dataStream"}).sort("{$natural:-1}").limit(50)
-  json_projects = []
+  projects = collection.find({"name": "dataStream"}).sort("{$natural:-1}").limit(500)
+  json_light = []
   for project in projects:
-    json_projects.append(project)
-  for i in range(0,len(json_projects)):
-    json_projects[i]["date"] = json_projects[i]["published_at"]
-    json_projects[i]["light"] = json_projects[i]["data"].split(";")[0]
-    del json_projects[i]["name"]
-    del json_projects[i]["coreid"]
-    del json_projects[i]["ttl"]
-    del json_projects[i]["_id"]
-    del json_projects[i]["data"]
-    del json_projects[i]["published_at"]
-  json_projects = json.dumps(json_projects, default=json_util.default)
+    print type(project["published_at"])
+    published_at = datetime.strptime(project["published_at"], '%Y-%m-%dT%H:%M:%S.%fZ')
+    json_light.append([time.mktime(published_at.timetuple()),int(project["data"].split(";")[0])])
+  json_light = json.dumps(json_light, default=json_util.default)
   connection.close()
-  return json_projects
+  return json_light
+
+@app.route("/ceres_db/devicestream_temp")
+def ceres_project_temp():
+  connection = MongoClient()
+  collection = connection[DBS_NAME][COLLECTION_NAME]
+  projects = collection.find({"name": "dataStream"}).sort("{$natural:-1}").limit(500)
+  json_temp = []
+  for project in projects:
+    print type(project["published_at"])
+    published_at = datetime.strptime(project["published_at"], '%Y-%m-%dT%H:%M:%S.%fZ')
+    json_temp.append([time.mktime(published_at.timetuple()),int(project["data"].split(";")[1])])
+  json_temp = json.dumps(json_temp, default=json_util.default)
+  connection.close()
+  return json_temp
+
+@app.route("/ceres_db/devicestream_mois")
+def ceres_project_mois():
+  connection = MongoClient()
+  collection = connection[DBS_NAME][COLLECTION_NAME]
+  projects = collection.find({"name": "dataStream"}).sort("{$natural:-1}").limit(500)
+  json_mois = []
+  for project in projects:
+    print type(project["published_at"])
+    published_at = datetime.strptime(project["published_at"], '%Y-%m-%dT%H:%M:%S.%fZ')
+    json_mois.append([time.mktime(published_at.timetuple()),int(project["data"].split(";")[2])])
+  json_mois = json.dumps(json_mois, default=json_util.default)
+  connection.close()
+  return json_mois
     
 @app.route("/ceres_db/devicestream_watering")
 def ceres_project_watering():
 	connection = MongoClient()
 	collection = connection[DBS_NAME][COLLECTION_NAME]
 	projects = collection.find({"name": "pumpManual"}).sort("{$natural:-1}").limit(10)
-	json_projects_watering = []
+	json_watering = []
 	for project in projects:
-		json_projects_watering.append(project)
-	json_projects_watering = json.dumps(json_projects_watering, default=json_util.default)
+		json_watering.append(project)
+	json_watering = json.dumps(json_watering, default=json_util.default)
 	connection.close()
-	return json_projects_watering  
+	return json_watering  
 	
 if __name__ == "__main__":
     app.run(host='vps192645.ovh.net', port=80, debug=True)

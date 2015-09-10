@@ -1,134 +1,221 @@
 queue()
-    .defer(d3.json, "/ceres_db/devicestream")
+    .defer(d3.json, "/ceres_db/devicestream_light")
+    .defer(d3.json, "/ceres_db/devicestream_temp")
+    .defer(d3.json, "/ceres_db/devicestream_mois")
     .defer(d3.json, "/ceres_db/devicestream_watering")
-    .defer(d3.json, "/ceres_db/devicestream_test")
     .await(makeGraphs);
 
-function makeGraphs(error, projectsJson, projectsJson_watering, projectsJson_test, statesJson) {
+function makeGraphs(error, json_light, json_temp, json_mois, json_watering, statesJson) {
 	
-  console.log("start makeGraphs fct");
-  var devicestream = projectsJson;
-  //var devicestream_test = JSON.parse(JSON.stringify(projectsJson_test));
-    
-  var devicestream_test = $.map(projectsJson_test, function(el) { 
-	return el; 
-  });  
-  
-  devicestream_test.forEach(function(d) {
-        d = $.map(d, function(el) { return el; });
-  });
-
-  console.log(JSON.stringify(devicestream_test[1]));
-
-  var watering = projectsJson_watering;
+  var watering = json_watering;
   var dateFormat = d3.time.format("%Y-%m-%d");
-  devicestream.forEach(function(d) {
-        d["published_at"] = new Date(d["published_at"]);
-    	d["published_at"].setDate(1);
-  });
-
   watering.forEach(function(d) {
-	d["published_at"] = new Date(d["published_at"]);
-    	d["published_at"].setDate(1);
-  });
-  
-  var data = devicestream.map(function (d) {
-    
-    var data_json = JSON.stringify(d);
-    var dataStream = JSON.parse(data_json);
-    var sensorsData = dataStream.data.split(";");
-  
-    return {
-      date:  d.published_at,
-      temp: sensorsData[0],
-      light: sensorsData[1],
-      mois: sensorsData[2],
-    };
-  });
-  
-  console.log(data[0]);
-
-  var markers = watering.map(function (marker) {
-    return {
-      date: marker.published_at,
-      type: "PumpManual",//marker.name,
-      quantity: marker.data
-    };
+	  d["published_at"] = new Date(d["published_at"]);
+    d["published_at"].setDate(1);
   });
     
-  makeChart(data, markers);  
-  
-  
-  // test highcharts
-  
+    
+  // Mois sensor
   $(function () {
-    //$.getJSON(projectsJson_test, function (data) { 
-      console.log(devicestream_test);
-        $('#container').highcharts({
-            chart: {
-                zoomType: 'x'
+    $('#moisture_evol').highcharts({
+      chart: {
+        zoomType: 'x'
+      },
+      colors: ['#1F3A93'],
+      title: {
+        text: 'Moisture Sensor'
+      },
+      subtitle: {
+        text: '% of water over time'
+      },
+      xAxis: {
+        type: 'datetime'
+      },
+      yAxis: {
+        min: 0,
+        title: {
+          text: '% of water'
+        }
+      },
+      legend: {
+        enabled: false
+      },
+      plotOptions: {
+        area: {
+          fillColor: {
+            linearGradient: {
+              x1: 0,
+              y1: 0,
+              x2: 0,
+              y2: 1
             },
-            colors: ['#1F3A93'],
-            title: {
-                text: 'Moisture Sensor'
-            },
-            subtitle: {
-                text: '% of water over time'
-            },
-            xAxis: {
-                type: 'datetime'
-            },
-            yAxis: {
-                title: {
-                    text: '% of water'
-                }
-            },
-            legend: {
-                enabled: false
-            },
-            plotOptions: {
-                area: {
-                    fillColor: {
-                        linearGradient: {
-                            x1: 0,
-                            y1: 0,
-                            x2: 0,
-                            y2: 1
-                        },
-                        stops: [
-                            [0, '#1F3A93'],
-                            [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
-                        ]
-                    },
-                    marker: {
-                        radius: 2
-                    },
-                    lineWidth: 1,
-                    states: {
-                        hover: {
-                            lineWidth: 1
-                        }
-                    },
-                    threshold: null
-                },
-            },
-
-            series: [{
-                type: 'area',
-                name: '% of water',
-                data: devicestream_test
-            }],
-            
-            exporting: {
-              enabled: false
-            },
-            credits: {
-              enabled: false
+            stops: [
+              [0, '#1F3A93'],
+              [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+            ]
+          },
+          marker: {
+            radius: 2
+          },
+          lineWidth: 1,
+          states: {
+            hover: {
+              lineWidth: 1
             }
-        });
-  //});
+          },
+          threshold: null
+        },
+      },
+
+      series: [{
+        type: 'area',
+        name: '% of water',
+        data: json_mois
+      }],
+            
+      exporting: {
+        enabled: false
+      },
+      credits: {
+        enabled: false
+      }
+    });
   });
 
+ 
+  // Light sensor
+  $(function () {
+    $('#light_evol').highcharts({
+      chart: {
+        zoomType: 'x'
+      },
+      colors: ['#F7CA18'],
+      title: {
+        text: 'Light Sensor'
+      },
+      subtitle: {
+        text: 'Lumens over time'
+      },
+      xAxis: {
+        type: 'datetime'
+      },
+      yAxis: {
+        min: 0,
+        title: {
+          text: 'Lumens'
+        }
+      },
+      legend: {
+        enabled: false
+      },
+      plotOptions: {
+        area: {
+          fillColor: {
+            linearGradient: {
+              x1: 0,
+              y1: 0,
+              x2: 0,
+              y2: 1
+            },
+            stops: [
+              [0, '#F7CA18'],
+              [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+            ]
+          },
+          marker: {
+            radius: 2
+          },
+          lineWidth: 1,
+          states: {
+            hover: {
+              lineWidth: 1
+            }
+          },
+          threshold: null
+        },
+      },
 
+      series: [{
+        type: 'area',
+        name: 'Lumens',
+        data: json_light
+      }],
+            
+      exporting: {
+        enabled: false
+      },
+      credits: {
+        enabled: false
+      }
+    });
+  });
 
-};
+ 
+  // Temp sensor
+  $(function () {
+    $('#temp_evol').highcharts({
+      chart: {
+        zoomType: 'x'
+      },
+      colors: ['#CF000F'],
+      title: {
+        text: 'Temperature Sensor'
+      },
+      subtitle: {
+        text: 'Celcius degrees over time'
+      },
+      xAxis: {
+        type: 'datetime'
+      },
+      yAxis: {
+        min: 0,
+        title: {
+          text: '°C'
+        }
+      },
+      legend: {
+        enabled: false
+      },
+      plotOptions: {
+        area: {
+          fillColor: {
+            linearGradient: {
+              x1: 0,
+              y1: 0,
+              x2: 0,
+              y2: 1
+            },
+            stops: [
+              [0, '#CF000F'],
+              [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+            ]
+          },
+          marker: {
+            radius: 2
+          },
+          lineWidth: 1,
+          states: {
+            hover: {
+              lineWidth: 1
+            }
+          },
+          threshold: null
+        },
+      },
+
+      series: [{
+        type: 'area',
+        name: '°C',
+        data: json_temp
+      }],
+            
+      exporting: {
+        enabled: false
+      },
+      credits: {
+        enabled: false
+      }
+    });
+  });
+
+}
