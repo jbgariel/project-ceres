@@ -30,7 +30,7 @@ More info : http://www.project-ceres.xyz
 * Social network part on website
 * Buy cable sheath
 * add IFTTT notifications
-* Graphs code reshape 
+* ~~Graphs code reshape~~
 
 ## Questions
 * Connector between photoresistro and pcb = noise ? data lost ?
