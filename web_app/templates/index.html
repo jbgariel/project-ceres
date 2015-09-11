@@ -25,28 +25,26 @@
 
 		<!-- Custom CSS -->
 		<link rel="stylesheet" href="./static/css/creative.css" type="text/css">
-    
-    	<script src="./static/js/jquery.min.js"></script>
-		<script src="./static/js/bootstrap.min.js"></script>
 
 		<!-- jQuery -->
 		<script src="./static/js/jquery.js"></script>
 
 		<!-- Bootstrap Core JavaScript -->
 		<script src="./static/js/bootstrap.min.js"></script>
+		<script src="./static/js/bootstrap.js"></script>
 
 		<!-- Plugin JavaScript -->
 		<script src="./static/js/jquery.easing.min.js"></script>
 		<script src="./static/js/jquery.fittext.js"></script>
-		<script src="./static/js/wow.min.js"></script>
-    
-		<!-- Custom JavaScript -->
-		<script src="./static/js/creative.js"></script>	
-
+		<script src="./static/js/jquery.min.js"></script>
+		<!--  <script src="./static/js/wow.min.js"></script> -->
     	<script src="./static/js/d3.js"></script>
     	<script src="./static/js/queue.js"></script>
       	<script src="http://code.highcharts.com/highcharts.js"></script>
     	<script src="http://code.highcharts.com/modules/exporting.js"></script>
+		
+		<!-- Custom JavaScript -->
+		<script src="./static/js/creative.js"></script>	  	
  		<script src="./static/js/liquidFillGauge.js"></script>
 		<script src="./static/js/graphData.js"></script>
 
@@ -57,7 +55,6 @@
 
 		<nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
 		<div class="container-fluid">
-			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
 					<span class="sr-only">Toggle navigation</span>
@@ -66,7 +63,7 @@
 					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand page-scroll" href="/" title="Project Ceres"><img style="max-width:40px; margin-top: -10px;" src="./static/img/logo/cgreen.png"> </a>
-        <a class="navbar-brand page-scroll" href="/" title="Project Ceres">Project Ceres</a>
+        		<a class="navbar-brand page-scroll" href="/" title="Project Ceres">Project Ceres</a>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
@@ -185,12 +182,12 @@ non-intrusive and modular.</p>
 				<!-- Time Chart -->
 				<div class="col-sm-12 text-center">
 					<div class="chart-wrapper">
-						<div class="chart-title">
-							<p><b>Last Month Data</b></p>
-						</div>
-						<div id="moisture_evol" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-						<div id="light_evol" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-            			<div id="temp_evol" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+						<div class="chart-title"><p><b>% of water over time</b></p></div>
+						<div id="moisture_evol" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
+						<div class="chart-title"><p><b>Light over time</b> (Lumens)</p></div>
+						<div id="light_evol" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
+						<div class="chart-title"><p><b>Temperature over time</b> (°C)</p></div>
+            			<div id="temp_evol" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
 					</div>
 				</div>
 				<!-- Time Chart --> 

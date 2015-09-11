@@ -14,6 +14,9 @@ MONGODB_PORT = 12345
 DBS_NAME = 'ceres_db'
 COLLECTION_NAME = 'devicestream'
 
+def getKey(item):
+  return item[0]
+
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -22,13 +25,12 @@ def index():
 def ceres_project_light():
   connection = MongoClient()
   collection = connection[DBS_NAME][COLLECTION_NAME]
-  projects = collection.find({"name": "dataStream"}).sort("{$natural:-1}").limit(500)
+  projects = collection.find({"name": "dataStream"}).sort("{$natural:-1}").limit(5000)
   json_light = []
   for project in projects:
-    print type(project["published_at"])
     published_at = datetime.strptime(project["published_at"], '%Y-%m-%dT%H:%M:%S.%fZ')
-    json_light.append([time.mktime(published_at.timetuple()),int(project["data"].split(";")[0])])
-  json_light = json.dumps(json_light, default=json_util.default)
+    json_light.append([time.mktime(published_at.timetuple()) * 1000,int(project["data"].split(";")[0])])
+  json_light = json.dumps(sorted(json_light, key=getKey), default=json_util.default)
   connection.close()
   return json_light
 
@@ -36,13 +38,12 @@ def ceres_project_light():
 def ceres_project_temp():
   connection = MongoClient()
   collection = connection[DBS_NAME][COLLECTION_NAME]
-  projects = collection.find({"name": "dataStream"}).sort("{$natural:-1}").limit(500)
+  projects = collection.find({"name": "dataStream"}).sort("{$natural:-1}").limit(5000)
   json_temp = []
   for project in projects:
-    print type(project["published_at"])
     published_at = datetime.strptime(project["published_at"], '%Y-%m-%dT%H:%M:%S.%fZ')
-    json_temp.append([time.mktime(published_at.timetuple()),int(project["data"].split(";")[1])])
-  json_temp = json.dumps(json_temp, default=json_util.default)
+    json_temp.append([time.mktime(published_at.timetuple()) * 1000,int(project["data"].split(";")[1])])
+  json_temp = json.dumps(sorted(json_temp, key=getKey), default=json_util.default)
   connection.close()
   return json_temp
 
@@ -50,13 +51,12 @@ def ceres_project_temp():
 def ceres_project_mois():
   connection = MongoClient()
   collection = connection[DBS_NAME][COLLECTION_NAME]
-  projects = collection.find({"name": "dataStream"}).sort("{$natural:-1}").limit(500)
+  projects = collection.find({"name": "dataStream"}).sort("{$natural:-1}").limit(5000)
   json_mois = []
   for project in projects:
-    print type(project["published_at"])
     published_at = datetime.strptime(project["published_at"], '%Y-%m-%dT%H:%M:%S.%fZ')
-    json_mois.append([time.mktime(published_at.timetuple()),int(project["data"].split(";")[2])])
-  json_mois = json.dumps(json_mois, default=json_util.default)
+    json_mois.append([time.mktime(published_at.timetuple()) * 1000,int(project["data"].split(";")[2])])
+  json_mois = json.dumps(sorted(json_mois, key=getKey), default=json_util.default)
   connection.close()
   return json_mois
     

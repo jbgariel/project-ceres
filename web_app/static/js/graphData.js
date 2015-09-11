@@ -23,11 +23,11 @@ function makeGraphs(error, json_light, json_temp, json_mois, json_watering, stat
       },
       colors: ['#1F3A93'],
       title: {
-        text: 'Moisture Sensor'
+        text: ''
       },
-      subtitle: {
-        text: '% of water over time'
-      },
+      //subtitle: {
+      //  text: '% of water over time'
+      //},
       xAxis: {
         type: 'datetime'
       },
@@ -47,7 +47,7 @@ function makeGraphs(error, json_light, json_temp, json_mois, json_watering, stat
               x1: 0,
               y1: 0,
               x2: 0,
-              y2: 1
+              y2: 0.5
             },
             stops: [
               [0, '#1F3A93'],
@@ -91,11 +91,11 @@ function makeGraphs(error, json_light, json_temp, json_mois, json_watering, stat
       },
       colors: ['#F7CA18'],
       title: {
-        text: 'Light Sensor'
+        text: ''
       },
-      subtitle: {
-        text: 'Lumens over time'
-      },
+      //subtitle: {
+      //  text: 'Lumens over time'
+      //},
       xAxis: {
         type: 'datetime'
       },
@@ -115,7 +115,7 @@ function makeGraphs(error, json_light, json_temp, json_mois, json_watering, stat
               x1: 0,
               y1: 0,
               x2: 0,
-              y2: 1
+              y2: 0.5
             },
             stops: [
               [0, '#F7CA18'],
@@ -159,11 +159,11 @@ function makeGraphs(error, json_light, json_temp, json_mois, json_watering, stat
       },
       colors: ['#CF000F'],
       title: {
-        text: 'Temperature Sensor'
+        text: ''
       },
-      subtitle: {
-        text: 'Celcius degrees over time'
-      },
+      //subtitle: {
+      //  text: 'Celcius degrees over time'
+      //},
       xAxis: {
         type: 'datetime'
       },
@@ -183,7 +183,7 @@ function makeGraphs(error, json_light, json_temp, json_mois, json_watering, stat
               x1: 0,
               y1: 0,
               x2: 0,
-              y2: 1
+              y2: 0.5
             },
             stops: [
               [0, '#CF000F'],
