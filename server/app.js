@@ -31,7 +31,7 @@ spark.on('login', function() {
   	console.log(sensorsData);
     console.log("Event: " + JSON.stringify(data));
 	insert(data);
-	activateMotor(20);
+	//activateMotor(20);
   });
 
 });
