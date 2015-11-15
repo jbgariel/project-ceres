@@ -31,6 +31,10 @@ spark.on('login', function() {
   	console.log(sensorsData);
     console.log("Event: " + JSON.stringify(data));
 	insert(data);
+
+  var userInput = readline();
+  print("User input: " + userInput);
+
 	//activateMotor(20);
   });
 
