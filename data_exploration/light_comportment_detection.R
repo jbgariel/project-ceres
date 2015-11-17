@@ -5,10 +5,10 @@ library(AnomalyDetection) # Twitter anomaly detection package
 library(BreakoutDetection) # Twitter breakout detection package
 
 # Import data
-data <- read.delim("text.csv", sep = ",")
-df.tmp <- data.frame(do.call('rbind', strsplit(as.character(data$data), ';', fixed = TRUE)))
+data <- read.delim("text.csv", sep=",")
+df.tmp <- data.frame(do.call('rbind', strsplit(as.character(data$data), ';', fixed=TRUE)))
 colnames(df.tmp) <- c("light", "temperature", "moisture")
-data <- cbind(subset(data, select = -c(data)), df.tmp)
+data <- cbind(subset(data, select=-c(data)), df.tmp)
 
 # Clean data frame
 data$name <- as.character(data$name)
@@ -19,38 +19,38 @@ data$moisture <- as.numeric(as.character(data$moisture))
 data <- data[data$name == "dataStream",]
 
 data.light <- subset(data, select = c(published_at, light))
-data.light$published_at <- as.POSIXct(data.light$published_at, "%Y-%m-%dT%H:%M:%S", tz = "UTC")
+data.light$published_at <- as.POSIXct(data.light$published_at, "%Y-%m-%dT%H:%M:%S", tz="UTC")
 colnames(data.light) <- c("timestamp", "count")
 
 # Detect breakout algorithm
-res.breakout = breakout(data.light, min.size = 2, method = 'multi',
-                        beta = .05, degree = 5, plot = TRUE) 
+res.breakout = breakout(data.light, min.size=2, method='multi',
+                        beta=.05, degree=5, plot=TRUE) 
 
 # Plotline
 ## general plot
-p <- ggplot(data.light, aes(x = timestamp, y = count))
+p <- ggplot(data.light, aes(x=timestamp, y=count))
 p <- p + geom_line()
 p <- p + ggtitle("Light time serie")
-p <- p + theme(plot.title = element_text(lineheight = .8, face = "bold"))
+p <- p + theme(plot.title=element_text(lineheight=.8, face="bold"))
 
 ## Add breakout detection layer
-N <- ceiling(length(res.breakout$loc)/2)
+N <- ceiling(length(res.breakout$loc) / 2)
 for(i in 1:N){
-  start_break <- 2*i-1
-  stop_break <- 2*i #ifelse(N/2 == ceiling(N/2) & i==N, nrow(data.light), 2*i)
+  start_break <- 2 * i - 1
+  stop_break <- 2 * i #ifelse(N/2 == ceiling(N/2) & i==N, nrow(data.light), 2*i)
   
-  p <- p + annotate("rect", xmin = data.light$timestamp[res.breakout$loc[start_break]],
-                    xmax = data.light$timestamp[res.breakout$loc[stop_break]],
-                    ymin = 0,
-                    ymax = max(data.light$count)+10,
-                    fill = "green",
-                    alpha = .15)  
+  p <- p + annotate("rect", xmin=data.light$timestamp[res.breakout$loc[start_break]],
+                    xmax=data.light$timestamp[res.breakout$loc[stop_break]],
+                    ymin=0,
+                    ymax=max(data.light$count) + 10,
+                    fill="green",
+                    alpha=.15)  
 }
 p
 
 # Cut time serie
 mini.ts <- list()
-M <- length(res.breakout$loc)+1
+M <- length(res.breakout$loc) + 1
 for(i in 1:M){
   
   if(i == 1){
@@ -71,10 +71,10 @@ for(i in 1:M){
 # Test
 data.test <- mini.ts$data[[5]]
 
-p <- ggplot(data.test, aes(x = timestamp, y = count))
+p <- ggplot(data.test, aes(x=timestamp, y=count))
 p <- p + geom_line()
 p <- p + ggtitle("Light time serie")
-p <- p + theme(plot.title = element_text(lineheight = .8, face = "bold"))
+p <- p + theme(plot.title=element_text(lineheight=.8, face="bold"))
 
 p
 
@@ -96,10 +96,10 @@ if(nrow(mini.ts$data[[i]][mini.ts$data[[i]]$count == 0,]) > nrow(mini.ts$data[[i
 }
 
 # Plot result with colors
-p <- ggplot(data.light, aes(x = timestamp, y = count))
+p <- ggplot(data.light, aes(x=timestamp, y=count))
 p <- p + geom_line()
 p <- p + ggtitle("Light time serie")
-p <- p + theme(plot.title = element_text(lineheight = .8, face = "bold"))
+p <- p + theme(plot.title=element_text(lineheight=.8, face="bold"))
 
 ## Add breakout detection layer with colors
 for(i in 1:length(mini.ts$class)){
@@ -108,11 +108,11 @@ for(i in 1:length(mini.ts$class)){
   if(mini.ts$class[[i]] == 2) color <- "green"
   if(mini.ts$class[[i]] == 3) color <- "red"
   
-  p <- p + annotate("rect", xmin = mini.ts$data[[i]]$timestamp[1],
-                    xmax = mini.ts$data[[i]]$timestamp[nrow(mini.ts$data[[i]])],
-                    ymin = 0,
-                    ymax = max(data.light$count)+10,
-                    fill = color,
-                    alpha = .15)  
+  p <- p + annotate("rect", xmin=mini.ts$data[[i]]$timestamp[1],
+                    xmax=mini.ts$data[[i]]$timestamp[nrow(mini.ts$data[[i]])],
+                    ymin=0,
+                    ymax=max(data.light$count)+10,
+                    fill=color,
+                    alpha=.15)  
 }
 p
