@@ -25,7 +25,7 @@ def index():
 def ceres_project_light():
   connection = MongoClient()
   collection = connection[DBS_NAME][COLLECTION_NAME]
-  projects = collection.find({"name": "dataStream"}).sort("{$natural:1}").limit(2000)
+  projects = collection.find({"name": "dataStream"}).sort("published_at").limit(2000)
   json_light = []
   for project in projects:
     published_at = datetime.strptime(project["published_at"], '%Y-%m-%dT%H:%M:%S.%fZ')
