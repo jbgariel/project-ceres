@@ -20,8 +20,8 @@ More info : http://www.project-ceres.xyz
 * Add pump automatic control on server
 * Design PCB
 * Design case and button
-* Finish data stream
-* Connect data to dashboard
+* ~~Finish data stream~~
+* ~~Connect data to dashboard~~
 * Oak board drill
 * Connect pump
 * Add water level detection
@@ -37,7 +37,7 @@ More info : http://www.project-ceres.xyz
 * find case for photoresistor http://www.ebay.com/itm/5-IP-Camera-Photoresistor-Lead-Wire-Assy-Light-Dependent-Resistor-LDR-GL5528-B-/261513555096
 * need this ? http://fr.aliexpress.com/store/product/OneWorld-Light-Intensity-Sensor-Module-5528-Photo-Resistor-For-AVR-case-for-arduino-UNO-R3/1626483_32282578300.html?storeId=1626483
 * Install temperature sensor directly on pcb ?
-* need better sensors ?
+* ~~need better sensors ?~~
 * Need many sample for each sensor datastream, average value seems to be sufficient => average calculation on particle or server ?
 * How to deal with sensors unconsistancy ?
 * PCB schematics => where to find photon schematics for kicad ?
