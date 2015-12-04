@@ -25,7 +25,7 @@ def index():
 def ceres_project_light():
   connection = MongoClient()
   collection = connection[DBS_NAME][COLLECTION_NAME]
-  projects = collection.find({"name": "dataStream"}).sort("{$natural:-1}").limit(2000)
+  projects = collection.find({"name": "dataStream"}).sort("{$natural:1}").limit(2000)
   json_light = []
   for project in projects:
     published_at = datetime.strptime(project["published_at"], '%Y-%m-%dT%H:%M:%S.%fZ')
@@ -38,7 +38,7 @@ def ceres_project_light():
 def ceres_project_temp():
   connection = MongoClient()
   collection = connection[DBS_NAME][COLLECTION_NAME]
-  projects = collection.find({"name": "dataStream"}).sort("{$natural:-1}").limit(2000)
+  projects = collection.find({"name": "dataStream"}).sort("{$natural:1}").limit(2000)
   json_temp = []
   for project in projects:
     published_at = datetime.strptime(project["published_at"], '%Y-%m-%dT%H:%M:%S.%fZ')
@@ -51,7 +51,7 @@ def ceres_project_temp():
 def ceres_project_mois():
   connection = MongoClient()
   collection = connection[DBS_NAME][COLLECTION_NAME]
-  projects = collection.find({"name": "dataStream"}).sort("{$natural:-1}").limit(2000)
+  projects = collection.find({"name": "dataStream"}).sort("{$natural:1}").limit(2000)
   json_mois = []
   for project in projects:
     published_at = datetime.strptime(project["published_at"], '%Y-%m-%dT%H:%M:%S.%fZ')
@@ -64,7 +64,7 @@ def ceres_project_mois():
 def ceres_project_watering():
 	connection = MongoClient()
 	collection = connection[DBS_NAME][COLLECTION_NAME]
-	projects = collection.find({"name": "pumpManual"}).sort("{$natural:-1}").limit(10)
+	projects = collection.find({"name": "pumpManual"}).sort("{$natural:1}").limit(10)
 	json_watering = []
 	for project in projects:
 		json_watering.append(project)
