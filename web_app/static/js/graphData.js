@@ -6,15 +6,7 @@ queue()
     .await(makeGraphs);
 
 function makeGraphs(error, json_light, json_temp, json_mois, json_watering, statesJson) {
-	
-  var watering = json_watering;
-  var dateFormat = d3.time.format("%Y-%m-%d");
-  watering.forEach(function(d) {
-	  d["published_at"] = new Date(d["published_at"]);
-    d["published_at"].setDate(1);
-  });
-    
-    
+
   // Mois sensor
   $(function () {
     $('#moisture_evol').highcharts({
@@ -218,4 +210,51 @@ function makeGraphs(error, json_light, json_temp, json_mois, json_watering, stat
     });
   });
 
+
+
+  
+var config1 = liquidFillGaugeDefaultSettings();
+      config1.circleColor = "#CF000F";
+      config1.textColor = "#CF000F";
+      config1.waveTextColor = "#D91E18";
+      config1.waveColor = "#FF7668";
+      config1.circleThickness = 0.08;
+      config1.waveHeight = 0;
+      config1.waveAnimate = false;
+      config1.waveCount = 1;
+      config1.waveOffset = 0.25;
+      config1.minValue = -10;
+      config1.maxValue = 50;
+      config1.displayPercent = false;
+      var gauge1 = loadLiquidFillGauge("fillgauge1", json_temp[ Object.keys(json_temp).pop() ][1], config1);
+
+var config2 = liquidFillGaugeDefaultSettings();
+      config2.circleColor = "#1F3A93";
+      config2.textColor = "#1F3A93";
+      config2.waveTextColor = "#2574A9";
+      config2.waveColor = "#6BB9F0";
+      config2.circleThickness = 0.08;
+      config2.waveAnimateTime = 3000;
+      config2.waveHeight = 0.05;
+      config2.waveCount = 2;
+      config2.minValue = 0;
+      config2.maxValue = 100;
+      var gauge2 = loadLiquidFillGauge("fillgauge2", json_mois[ Object.keys(json_mois).pop() ][1] / 100, config2);
+
+var config3 = liquidFillGaugeDefaultSettings();
+      config3.circleColor = "#F7CA18";
+      config3.textColor = "#F7CA18";
+      config3.waveTextColor = "#F4D03F";
+      config3.waveColor = "#F5D76E";
+      config3.circleThickness = 0.08;
+      config3.waveHeight = 0;
+      config3.waveAnimate = false;
+      config3.waveCount = 1;
+      config3.waveOffset = 0.25;
+      config3.minValue = 0;
+      config3.maxValue = 2000;
+      config3.displayPercent = false;
+      var gauge3 = loadLiquidFillGauge("fillgauge3", json_light[ Object.keys(json_light).pop() ][1], config3);
+
 }
+
