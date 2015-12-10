@@ -23,18 +23,16 @@ spark.on('login', function() {
   	var data_json = JSON.stringify(data);
   	var dataStream = JSON.parse(data_json);
 	
-	if (dataStream.name == null) {
-		break;
+	if (dataStream.name != null) {
+  		if (dataStream.name == "dataStream"){
+  			var sensorsData = dataStream.data.split(";");
+ 			console.log(sensorsData[0]);
+  		}
+
+  		console.log(sensorsData);
+    		console.log("Event: " + JSON.stringify(data));
+		insert(data);
 	}
-  	if (dataStream.name == "dataStream"){
-  		var sensorsData = dataStream.data.split(";");
- 		console.log(sensorsData[0]);
-  	}
-
-  	console.log(sensorsData);
-    	console.log("Event: " + JSON.stringify(data));
-	insert(data);
-
 	//activateMotor(20);
   });
 
