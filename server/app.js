@@ -23,7 +23,7 @@ spark.on('login', function() {
   	var data_json = JSON.stringify(data);
   	var dataStream = JSON.parse(data_json);
 	
-	if (dataStream.name != null) {
+	if (typeof dataStream.name != "undefined") {
   		if (dataStream.name == "dataStream"){
   			var sensorsData = dataStream.data.split(";");
  			console.log(sensorsData[0]);
