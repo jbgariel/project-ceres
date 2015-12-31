@@ -636,4 +636,8 @@ body {
     height: 120px;
 }
 
+.img-responsive {
+    width: 100%;
+    height: auto;
+}
 
