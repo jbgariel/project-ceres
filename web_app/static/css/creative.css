@@ -638,7 +638,7 @@ body {
 
 .imgage-responsive {
     width: 100%;
-    height: 200px;
+    height: 100px;
     display: block;
     max-width: 100%;
 }
