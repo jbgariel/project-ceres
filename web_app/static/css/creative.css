@@ -236,13 +236,13 @@ TEST HERE
 }
  */
 
-#header-content video {
+#header-content #looped-vid {
     height: auto;
     display: block;
 }
 
 
-#header-content video, #sh-wrapper iframe {
+#header-content #looped-vid, #sh-wrapper iframe {
     position: absolute;
     top: 0;
     left: 0;
@@ -254,7 +254,7 @@ TEST HERE
 TEST END HERE
  */
 
-@media(max-width:979px) #header-content video {
+@media(max-width:979px) #header-content #looped-vid {
     display: none;
 }
 
