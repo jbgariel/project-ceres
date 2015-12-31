@@ -254,7 +254,7 @@ TEST HERE
 TEST END HERE
  */
 
-@media(min-width:979px) #showreel-wrapper video {
+@media(max-width:979px) #header-content video {
     display: none;
 }
 
