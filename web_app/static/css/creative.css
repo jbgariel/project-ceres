@@ -216,6 +216,26 @@ header .header-content .header-content-inner p {
     color: rgba(255,255,255,.7);
 }
 
+/*!
+TEST HERE
+ */
+
+#header-content video {
+    height: auto;
+    display: block;
+}
+#header-content video, #sh-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/*!
+TEST END HERE
+ */
+
 @media(min-width:768px) {
     header {
         min-height: 100%;
