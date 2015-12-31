@@ -247,12 +247,17 @@ TEST HERE
     top: 0;
     left: 0;
     width: 100%;
-    /*!height: auto;*/
+    height: auto;
 }
 
 /*!
 TEST END HERE
  */
+
+@media(max-width: 979px)
+#showreel-wrapper video {
+    display: none;
+}
 
 @media(min-width:768px) {
     header {
