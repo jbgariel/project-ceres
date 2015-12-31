@@ -637,7 +637,7 @@ body {
 }
 
 .image-responsive {
-    width: 100%;
+    width: auto;
     height: 260px;
     display: block;
     max-width: 100%;
