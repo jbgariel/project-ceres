@@ -218,7 +218,7 @@ header .header-content .header-content-inner p {
 
 /*!
 TEST HERE
- */
+
 .bg-video {
     bottom: 0;
     display: none;
@@ -234,6 +234,7 @@ TEST HERE
     width: auto;
     z-index: -1;
 }
+ */
 
 #header-content video {
     height: auto;
