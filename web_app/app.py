@@ -42,7 +42,7 @@ def ceres_project_temp():
   json_temp = []
   for project in projects:
     published_at = datetime.strptime(project["published_at"], '%Y-%m-%dT%H:%M:%S.%fZ')
-    json_temp.append([time.mktime(published_at.timetuple()) * 1000,int(project["data"].split(";")[1])])
+    json_temp.append([time.mktime(published_at.timetuple()) * 1000,float(project["data"].split(";")[1])])
   json_temp = json.dumps(sorted(json_temp, key=getKey), default=json_util.default)
   connection.close()
   return json_temp
