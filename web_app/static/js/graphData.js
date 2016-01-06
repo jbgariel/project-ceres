@@ -7,6 +7,12 @@ queue()
 
 function makeGraphs(error, json_light, json_temp, json_mois, json_watering, statesJson) {
 
+  Highcharts.setOptions({
+    global: {
+        useUTC: false
+    }
+  });
+  
   // Mois sensor
   $(function () {
     $('#moisture_evol').highcharts({
