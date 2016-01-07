@@ -1,13 +1,10 @@
 // app.js
-var mongojs = require('mongojs')
 var spark = require('spark');
 
 var config = require('./config');
-var db = mongojs('ceres_db', ['devices', 'devicestream'])
 
 console.log(config);
 console.log(config.mongodb.user_name);
-console.log(config.mongodb.password);
 
 spark.login({username: config.mongodb.user_name, password: config.mongodb.password});
 
@@ -28,9 +25,9 @@ spark.on('login', function() {
   });
 });
 
-var activateMotor = function(motorDuration) {
-	spark.callFunction('300037000347343138333038','pump',motorDuration,function(err,data){
-		console.log("cannot pump ;)");
-		console.log(err);
-	});
+function activateMotor(motorDuration) {
+  spark.callFunction('300037000347343138333038','serverPumpOrder',motorDuration,function(err,data){
+    console.log("cannot pump ;)");
+    console.log(err);
+  });
 };
