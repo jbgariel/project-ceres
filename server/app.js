@@ -15,7 +15,7 @@ insert = function insert(data) {
 };
 
 function openStream() {
-  const req = Spark.getEventStream( false, 'mine', function(data) {
+  const req = spark.getEventStream( false, 'mine', function(data) {
     console.log("Defining variables");
 
     var data_json = JSON.stringify(data);
