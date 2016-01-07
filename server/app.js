@@ -26,13 +26,14 @@ function openStream() {
     if (typeof dataStream.name != "undefined") {
        if (dataStream.name == "dataStream"){
         var sensorsData = dataStream.data.split(";");
-    }
+    }}
 
     console.log("Event: " + JSON.stringify(data));
     insert(data);
     console.log("Data inserted");  
     console.log("----------------------------"); 
-  });
+  }
+  );
   req.on('end', function() {
     console.warn("Spark event stream ended! re-opening in 3 seconds...");
     setTimeout(openStream, 3 * 1000);
