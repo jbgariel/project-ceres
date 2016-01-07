@@ -64,8 +64,8 @@ spark.on('login', function() {
 //    console.log("Data inserted");  
 //    console.log("----------------------------");   
 // }
-	//activateMotor(20);
-});
+//activateMotor(20);
+//});
 
 });
 
