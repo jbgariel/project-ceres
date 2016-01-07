@@ -8,26 +8,15 @@ console.log(config.mongodb.user_name);
 
 spark.login({username: config.mongodb.user_name, password: config.mongodb.password});
 
-var readline = require('readline');
-
-var rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
-
-spark.on('login', function() {
-  rl.question("Activate motor y/n? ", function(answer) {
-    if (answer.match(/^y(es)?$/i)) {
-      console.log("Motor:", answer);
-      activateMotor(20);
-      rl.close();
-    }
-  });
-});
-
 function activateMotor(motorDuration) {
-  spark.callFunction('300037000347343138333038','serverPumpOrder',motorDuration,function(err,data){
-    console.log("cannot pump ;)");
+  spark.callFunction('300037000347343138333038','pump',motorDuration,function(err,data){
     console.log(err);
   });
 };
+
+activateMotor('20');
+
+//curl "https://api.spark.io/v1/devices/300037000347343138333038?access_token=ed218fb2ed8bf607f58dc230fbf9061227d21656"
+
+
+
