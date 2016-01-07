@@ -14,12 +14,20 @@ insert = function insert(data) {
   db.devicestream.insert(data);
 };
 
+function openStream() {
+  const req = Spark.getEventStream( false, 'mine', function(...) {...}  );
+  req.on('end', function() {
+    console.warn("Spark event stream ended! re-opening in 3 seconds...");
+    setTimeout(openStream, 3 * 1000);
+  });
+}
+
 spark.on('login', function() {
 
   console.log("Retreiving data");
 
   //Get device events
-  spark.getEventStream(false, 'mine', function(data) {
+  openStream(false, 'mine', function(data) {
 
     console.log("Defining variables");
 
