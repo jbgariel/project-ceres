@@ -14,36 +14,30 @@ insert = function insert(data) {
   db.devicestream.insert(data);
 };
 
-function openStream() {
-  const req = spark.getEventStream( false, 'mine', function(data) {
-    console.log("Defining variables");
-
-    var data_json = JSON.stringify(data);
-    var dataStream = JSON.parse(data_json);
-
-    console.log("Defined data verification");
-
-    if (typeof dataStream.name != "undefined") {
-       if (dataStream.name == "dataStream"){
-        var sensorsData = dataStream.data.split(";");
-    }}
-
+send_data = function send_data(data) {
     console.log("Event: " + JSON.stringify(data));
     insert(data);
     console.log("Data inserted");  
-    console.log("----------------------------"); 
-  }
-  );
-  req.on('end', function() {
-    console.warn("Spark event stream ended! re-opening in 3 seconds...");
-    setTimeout(openStream, 3 * 1000);
-  });
-}
+    console.log("----------------------------");
+};
+
+var openStream = function() {
+
+    //Get your event stream
+    var req = spark.getEventStream(false, 'mine', function(data) {
+      console.log("Event: " + JSON.stringify(data));
+      send_data(data)
+    });
+
+    req.on('end', function() {
+        console.log("ended!  re-opening in 3 seconds...");
+        setTimeout(openStream, 3 * 1000);
+    });
+};
 
 spark.on('login', function() {
-  console.log("Retreiving data");
-  //Get device events
-  openStream()
+    console.log("Retreiving data");
+    openStream();
 });
 
 function activateMotor(motorDuration) {
@@ -52,3 +46,10 @@ function activateMotor(motorDuration) {
 		console.log(err);
 	});
 };
+
+//var data_json = JSON.stringify(data);
+//var dataStream = JSON.parse(data_json);
+//if (typeof dataStream.name != "undefined") {
+//  if (dataStream.name == "dataStream"){
+//    var sensorsData = dataStream.data.split(";");
+//}}
