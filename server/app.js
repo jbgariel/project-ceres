@@ -25,7 +25,7 @@ var openStream = function() {
 
     //Get your event stream
     var req = spark.getEventStream(false, 'mine', function(data) {
-      console.log("Event: " + JSON.stringify(data));
+      console.log("Event stream openned");
       send_data(data)
     });
 
