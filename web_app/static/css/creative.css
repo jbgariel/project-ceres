@@ -640,6 +640,18 @@ body {
     width: 100%;
     height: 260px;
     display: block;
-    max-width: 100%;
+    max-width: 910px;
 }
+
+.image-responsive-portrait {
+    width: 260px;
+    height: 100%;
+    display: block;
+    max-height: 910px;
+}
+
+
+
+
+
 
