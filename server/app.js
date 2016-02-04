@@ -26,7 +26,7 @@ var openStream = function() {
     //Get your event stream
     var req = spark.getEventStream(false, 'mine', function(data) {
       console.log("Event stream openned");
-      if (typeof dataStream.name != "undefined") {
+      if (typeof data != "undefined") {
       	send_data(data)
       }
     });
